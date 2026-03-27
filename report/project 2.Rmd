@@ -1,0 +1,51 @@
+---
+title: "Project 2"
+author: "Tyler Bryant"
+date: "2/20/2026"
+output: html_document
+---
+
+#Introduction: This dataset is the State-Specific Influenza Vaccination Coverage Among Women with Live Births — PRAMS, 2009–2010 Influenza Season deriving from the Pregnancy Risk Assessment Monitoring System. My objective is to  create a descriptive report analyzing the state level variation in flu vaccine coverage and to examine the disparities in uptake to improve vaccination coverage.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+
+library(tidyverse)
+library(ggplot2)
+library(gtsummary)
+library(readr)
+flu<- read_csv("https://data.cdc.gov/resource/mmi4-8ajr.csv?$limit=50000") 
+```
+
+```{r}
+names(flu)
+```
+
+
+```{r}
+library(gtsummary)
+tbl1<- flu %>%
+  select(seasonal) %>%
+  tbl_summary(
+    statistic=all_continuous()~"{mean} ({sd}) | {median} [{p25}, {p75}]"
+  )
+print(tbl1)
+```
+
+#Table 1 shows the distribution of state level seasonal influenza vaccination coverage among woem with a live birth during the 2009-2010 flu season. The mean vaccination coverage of 49% accross states demonstating variability in vaccination uptake across states.
+
+
+
+```{r}
+flu %>%
+  select(state,seasonal) %>%
+  arrange(seasonal) %>%
+  mutate(state=fct_inorder(state))%>% 
+  ggplot(aes(x=state, y=seasonal)) +
+  geom_col()+
+  coord_flip()
+```
+# this figure shows the varied vacination coverage across states. 
