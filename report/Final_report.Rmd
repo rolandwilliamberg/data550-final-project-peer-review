@@ -46,6 +46,17 @@ flu %>%
   mutate(state=fct_inorder(state))%>% 
   ggplot(aes(x=state, y=seasonal)) +
   geom_col()+
-  coord_flip()
 ```
-# this figure shows the varied vacination coverage across states. 
+# This figure shows the varied vacination coverage across states. 
+```{r}
+
+```
+
+```{r}
+install.packages("renv")
+renv::init()
+```
+```{r}
+renv::status()
+```
+
